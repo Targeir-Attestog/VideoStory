@@ -29,10 +29,11 @@ public class VideoController : MonoBehaviour {
             subtitlesTextGameObject.text = string.Empty;
         }
 
-        if (SceneManager.GetActiveScene().name == "VideoPlayer")
+        if (VideoLoader.currentVideo != null)
         {
             StartVideoPlayback(VideoLoader.currentVideo);
-        }        
+        }
+                
     }
 	
 	// Update is called once per frame
@@ -67,7 +68,7 @@ public class VideoController : MonoBehaviour {
         }
 
         //If a video has reached the end, leave the video player (Caution: This does obviously not work for looping videos.)
-        if (!videoPlayer.isLooping && videoPlayer.frame >= (long) videoPlayer.frameCount)
+        if (videoPlayer.isPlaying && !videoPlayer.isLooping && videoPlayer.frame >= (long) videoPlayer.frameCount)
         {
             LeaveVideo();
         }
@@ -105,19 +106,12 @@ public class VideoController : MonoBehaviour {
         //Load subtitles
         LoadSubtitles( videoClip );
         
-        //Assign the Audio from Video to AudioSource to be played
-        videoPlayer.EnableAudioTrack(0, true);
-        videoPlayer.SetTargetAudioSource(0, audioSource);
-
         //Set video To Play then prepare Audio to prevent Buffering
         videoPlayer.clip = videoClip;
         videoPlayer.Prepare();
         
         //Play Video
         videoPlayer.Play();
-
-        //Play Sound
-        audioSource.Play();
     }
 
     private void LoadSubtitles(VideoClip videoClip)
