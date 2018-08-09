@@ -532,7 +532,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7677eed36aef1a24fab58c0f9f235374, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneAfterPlayback: Intervju
+  sceneAfterPlayback: 
 --- !u!1 &918417037
 GameObject:
   m_ObjectHideFlags: 0

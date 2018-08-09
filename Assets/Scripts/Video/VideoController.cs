@@ -14,10 +14,11 @@ public class VideoController : MonoBehaviour {
     private UnityEngine.UI.Text subtitlesTextGameObject;
     private List<SubtitleItem> subtitleItems;
 
-    public string sceneAfterPlayback;
+    private string sceneAfterPlayback;    
 
     // Use this for initialization
     void Start () {
+        sceneAfterPlayback = VideoLoader.sceneAfterPlayback;
         videoPlayer = GetComponent<VideoPlayer>();
         subtitles = GameObject.FindGameObjectWithTag("Subtitles");
         subtitlesTextGameObject = subtitles.GetComponent<UnityEngine.UI.Text>();
@@ -30,8 +31,7 @@ public class VideoController : MonoBehaviour {
         if (VideoLoader.currentVideo != null)
         {
             StartVideoPlayback(VideoLoader.currentVideo);
-        }
-                
+        }                
     }
 	
 	// Update is called once per frame
@@ -65,7 +65,7 @@ public class VideoController : MonoBehaviour {
             }
         }
 
-        //If a video has reached the end, leave the video player (Caution: This does obviously not work for looping videos.)
+        // If a video has reached the end, leave the video player. (Caution: This does obviously not work for looping videos.)
         if (videoPlayer.isPlaying && !videoPlayer.isLooping && videoPlayer.frame >= (long) videoPlayer.frameCount)
         {
             LeaveVideo();
@@ -101,14 +101,14 @@ public class VideoController : MonoBehaviour {
 
     public void StartVideoPlayback(VideoClip videoClip)
     {
-        //Load subtitles
+        // Load subtitles
         LoadSubtitles( videoClip );
         
-        //Set video To Play then prepare Audio to prevent Buffering
+        // Set video To play, then prepare it to prevent Buffering
         videoPlayer.clip = videoClip;
         videoPlayer.Prepare();
         
-        //Play Video
+        // Play Video
         videoPlayer.Play();
     }
 
