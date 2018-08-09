@@ -9,15 +9,9 @@ public class VideoLoader : MonoBehaviour {
     [HideInInspector]
     public static VideoClip currentVideo;
 
-    public static void Load(VideoClip video)
+    public void LoadClip(VideoClip video)
     {
         currentVideo = video;
-        SceneManager.LoadScene("VideoPlayer");
-    }
-
-    public static void LoadString(string video)
-    {
-        //currentVideo = video;
         SceneManager.LoadScene("VideoPlayer");
     }
 }
