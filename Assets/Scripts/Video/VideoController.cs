@@ -8,8 +8,7 @@ using SubtitlesParser.Classes;
 
 public class VideoController : MonoBehaviour {
 
-    private VideoPlayer videoPlayer;
-    private AudioSource audioSource;    
+    private VideoPlayer videoPlayer;  
 
     private GameObject subtitles;
     private UnityEngine.UI.Text subtitlesTextGameObject;
@@ -20,7 +19,6 @@ public class VideoController : MonoBehaviour {
     // Use this for initialization
     void Start () {
         videoPlayer = GetComponent<VideoPlayer>();
-        audioSource = GetComponent<AudioSource>();
         subtitles = GameObject.FindGameObjectWithTag("Subtitles");
         subtitlesTextGameObject = subtitles.GetComponent<UnityEngine.UI.Text>();
 
