@@ -14,12 +14,21 @@ public class VideoController : MonoBehaviour {
     private UnityEngine.UI.Text subtitlesTextGameObject;
     private List<SubtitleItem> subtitleItems;
 
+    [SerializeField]
     private string sceneAfterPlayback;    
 
     // Use this for initialization
     void Start () {
-        sceneAfterPlayback = VideoLoader.sceneAfterPlayback;
+        Cursor.visible = false;
+
+        if (string.IsNullOrEmpty(sceneAfterPlayback))
+        {
+            sceneAfterPlayback = VideoLoader.sceneAfterPlayback;
+        }
+
         videoPlayer = GetComponent<VideoPlayer>();
+        videoPlayer.loopPointReached += EndReached;
+
         subtitles = GameObject.FindGameObjectWithTag("Subtitles");
         subtitlesTextGameObject = subtitles.GetComponent<UnityEngine.UI.Text>();
 
@@ -28,7 +37,13 @@ public class VideoController : MonoBehaviour {
             subtitlesTextGameObject.text = string.Empty;
         }
 
-        if (VideoLoader.currentVideo != null)
+        VideoClip presetClip = gameObject.GetComponent<VideoPlayer>().clip;
+
+        if( presetClip != null)
+        {
+            StartVideoPlayback(presetClip);
+        }
+        else if (VideoLoader.currentVideo != null)
         {
             StartVideoPlayback(VideoLoader.currentVideo);
         }                
@@ -42,7 +57,7 @@ public class VideoController : MonoBehaviour {
             foreach(var subItem in subtitleItems)
             {
                 // Show subtitle items at the predefined times. (TODO: May be optimized.)
-                // VideoPlayer measures time in seconds as a double float and subtitle (srt) file in milliseconds as an integer
+                // VideoPlayer measures time in seconds as a double float and subtitle (srt) file in milliseconds as an integer.
 
                 int currentVideoTimeInMilliseconds = (int)(videoPlayer.time * 1000);
 
@@ -65,26 +80,26 @@ public class VideoController : MonoBehaviour {
             }
         }
 
-        // If a video has reached the end, leave the video player. (Caution: This does obviously not work for looping videos.)
-        if (videoPlayer.isPlaying && !videoPlayer.isLooping && videoPlayer.frame >= (long) videoPlayer.frameCount)
-        {
-            LeaveVideo();
-        }
-
         if (Input.GetButtonUp("Jump"))
         {
             Pause();
         }
 
-        if(Input.GetButtonUp("Cancel"))
+        if (Input.GetButtonUp("Cancel"))
         {
             LeaveVideo();
         }
-    } 
-    
+    }
+
+    void EndReached(VideoPlayer vp)
+    {
+        LeaveVideo();
+    }
+
     private void LeaveVideo()
     {
         SceneManager.LoadScene(sceneAfterPlayback);
+        Cursor.visible = true;
     }
 
     private void Pause()
@@ -106,6 +121,13 @@ public class VideoController : MonoBehaviour {
         
         // Set video To play, then prepare it to prevent Buffering
         videoPlayer.clip = videoClip;
+
+        // A hack for removing the volume differences in the presentation of Piratpartiet 
+        if(videoPlayer.clip.name.Contains("_tg_") || videoPlayer.clip.name.Contains("_ga_"))
+        {
+            videoPlayer.SetDirectAudioVolume(0, 0.2f);
+        }
+
         videoPlayer.Prepare();
         
         // Play Video

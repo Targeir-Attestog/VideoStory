@@ -33,3 +33,7 @@ sysinfo.txt
 
 # Video clips
 VideoClips/
+*.mp4
+*.mp4.meta
+*.ogv
+*.ogv.meta
