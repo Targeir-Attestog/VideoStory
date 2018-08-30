@@ -9,9 +9,21 @@ EditorBuildSettings:
     path: Assets/Scenes/VideoPlayer/IntroVideoPlayer.unity
     guid: 3cb23662c2569d14581d724ba6f41386
   - enabled: 1
-    path: Assets/Scenes/MenusAndVideoClips/_Start.unity
+    path: Assets/Scenes/MenusAndVideoClips/_Start/_Start.unity
     guid: 2cda990e2423bbf4892e6590ba056729
   - enabled: 1
     path: Assets/Scenes/VideoPlayer/VideoPlayer.unity
     guid: 1c3a60cff91e3bb4c9d1210dc4a132d0
+  - enabled: 1
+    path: Assets/Scenes/MenusAndVideoClips/Forsvar/Forsvar.unity
+    guid: a8a21ce005aa21144aa24a41c166ac88
+  - enabled: 1
+    path: Assets/Scenes/MenusAndVideoClips/Rituale/Rituale.unity
+    guid: 67c5656eeead05b448ed216bb9e4cfee
+  - enabled: 1
+    path: "Assets/Scenes/MenusAndVideoClips/Tillitstg\xE5ver/Tillitsg\xE5ver.unity"
+    guid: fd8c4f81cc7f7d84785a3c81b8ca872c
+  - enabled: 1
+    path: Assets/Scenes/MenusAndVideoClips/_Slutt.unity
+    guid: 8641cd66a505387458a704fd866ef8f1
   m_configObjects: {}
